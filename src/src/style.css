@@ -188,3 +188,65 @@ button:hover {
 .stat-card svg {
   color: #ff9d32;
 }
+
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #080808;
+  padding: 20px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 35px;
+  background: #171717;
+  border: 1px solid #e87519;
+  border-radius: 18px;
+  text-align: center;
+}
+
+.auth-logo {
+  font-size: 55px;
+}
+
+.auth-card h1 {
+  color: #ff9d32;
+  font-size: 24px;
+}
+
+.auth-card p {
+  color: #aaa;
+}
+
+.auth-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.auth-card input {
+  padding: 14px;
+  background: #090909;
+  border: 1px solid #444;
+  border-radius: 8px;
+  color: white;
+}
+
+.auth-card button {
+  padding: 14px;
+  background: #e87519;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.auth-card .auth-switch {
+  margin-top: 15px;
+  background: transparent;
+  color: #ff9d32;
+}
