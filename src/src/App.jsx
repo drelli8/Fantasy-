@@ -94,7 +94,7 @@ export default function App() {
         <div className="brand">
           <div className="brand-icon">B</div>
           <div>
-            <h2>THE BOYS BOOK</h2>
+            <h2></h2>
             <span>PRIVATE POINTS LEAGUE</span>
           </div>
         </div>
@@ -135,7 +135,7 @@ export default function App() {
       <main className="main">
         <header className="topbar">
           <div>
-            <span className="eyebrow">THE BOYS BOOK</span>
+            <span className="eyebrow"></span>
             <h1>{page}</h1>
           </div>
           <div className="points-box">
@@ -242,7 +242,7 @@ export default function App() {
         )}
 
         <footer>
-          THE BOYS BOOK <span>•</span> VIRTUAL POINTS ONLY
+           <span>•</span> VIRTUAL POINTS ONLY
         </footer>
       </main>
     </div>
