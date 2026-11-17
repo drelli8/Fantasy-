@@ -64,6 +64,26 @@ export default function App() {
   const [optionB, setOptionB] = useState('')
   const [oddsA, setOddsA] = useState('-110')
   const [oddsB, setOddsB] = useState('-110')
+  const [session, setSession] = useState(null)
+const [authLoading, setAuthLoading] = useState(true)
+
+useEffect(() => {
+  supabase.auth.getSession().then(({ data: { session } }) => {
+    setSession(session)
+    setAuthLoading(false)
+  })
+
+  const { data: { subscription } } =
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session)
+      setAuthLoading(false)
+    })
+
+  return () => subscription.unsubscribe()
+}, [])
+
+if (authLoading) return <div className="auth-container">Loading...</div>
+if (!session) return <Auth />
 
   function createPrediction(event) {
     event.preventDefault()
