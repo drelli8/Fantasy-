@@ -92,7 +92,7 @@ export default function App() {
     <div className="app">
       <aside className="sidebar">
         <div className="brand">
-          <div className="brand-icon">B</div>
+          <div className="brand-icon">🏀</div>
           <div>
             <h2></h2>
             <span>PRIVATE POINTS LEAGUE</span>
@@ -146,13 +146,13 @@ export default function App() {
 
         {page === 'Home' && (
           <>
-            <section className="welcome">
+            <section className="">
               <div>
                 <span className="eyebrow">PRIVATE LEAGUE</span>
-                <h2>Welcome to Fantasy Gambling.</h2>
-                <p>Make predictions, collect virtual points, and compete with the group.</p>
+                <h2> to Fantasy Gambling.</h2>
+                <p>Follow the matchups, make your predictions, and compete with your friends for virtual points.</p>
               </div>
-              <div className="welcome-mark">B</div>
+              <div className="welcome-mark">🏀</div>
             </section>
 
             <section className="stats">
