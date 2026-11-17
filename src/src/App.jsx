@@ -1,9 +1,29 @@
 
 import { useState } from 'react'
 import {
-  Trophy, Users, Target, Plus, Home,
-  User, Activity, ChevronRight
+  Trophy, Users, Target, Home, Plus, ShieldCheck
 } from 'lucide-react'
+
+const initialPredictions = [
+  {
+    id: 1,
+    category: 'SPORTS',
+    question: 'Who wins the Sunday matchup?',
+    optionA: 'Team A',
+    optionB: 'Team B',
+    oddsA: -150,
+    oddsB: 130
+  },
+  {
+    id: 2,
+    category: 'FRIEND GROUP',
+    question: 'Will Mike be late to the meetup?',
+    optionA: 'Yes',
+    optionB: 'No',
+    oddsA: 110,
+    oddsB: -130
+  }
+]
 
 const players = [
   { name: '625', points: 1250 },
@@ -12,34 +32,50 @@ const players = [
   { name: 'Chris', points: 875 }
 ]
 
-const predictions = [
-  {
-    id: 1,
-    category: 'SPORTS',
-    question: 'Will the home team win this weekend?',
-    options: ['YES', 'NO']
-  },
-  {
-    id: 2,
-    category: 'FRIEND GROUP',
-    question: 'Will Mike be late to the next meetup?',
-    options: ['YES', 'NO']
-  },
-  {
-    id: 3,
-    category: 'CHALLENGES',
-    question: 'Will Chris complete his weekly challenge?',
-    options: ['YES', 'NO']
-  }
-]
+function calculateReturn(points, odds) {
+  if (!points || !odds) return 0
+  return Math.round(
+    odds > 0
+      ? points * (1 + odds / 100)
+      : points * (1 + 100 / Math.abs(odds))
+  )
+}
 
 export default function App() {
   const [page, setPage] = useState('Home')
-  const [selected, setSelected] = useState({})
-  const [points, setPoints] = useState(1000)
+  const [predictions, setPredictions] = useState(initialPredictions)
+  const [selections, setSelections] = useState({})
+  const [amounts, setAmounts] = useState({})
+  const [isCommissioner] = useState(true)
+  const [question, setQuestion] = useState('')
+  const [optionA, setOptionA] = useState('')
+  const [optionB, setOptionB] = useState('')
+  const [oddsA, setOddsA] = useState('-110')
+  const [oddsB, setOddsB] = useState('-110')
 
-  function makePrediction(id, option) {
-    setSelected({ ...selected, [id]: option })
+  function createPrediction(event) {
+    event.preventDefault()
+
+    if (!question.trim() || !optionA.trim() || !optionB.trim()) return
+
+    setPredictions([
+      ...predictions,
+      {
+        id: Date.now(),
+        category: 'CUSTOM',
+        question,
+        optionA,
+        optionB,
+        oddsA: Number(oddsA),
+        oddsB: Number(oddsB)
+      }
+    ])
+
+    setQuestion('')
+    setOptionA('')
+    setOptionB('')
+    setOddsA('-110')
+    setOddsB('-110')
   }
 
   return (
@@ -49,7 +85,7 @@ export default function App() {
           <div className="brand-icon">B</div>
           <div>
             <h2>THE BOYS BOOK</h2>
-            <span>PRIVATE LEAGUE</span>
+            <span>PRIVATE POINTS LEAGUE</span>
           </div>
         </div>
 
@@ -58,7 +94,8 @@ export default function App() {
             { name: 'Home', icon: Home },
             { name: 'Predictions', icon: Target },
             { name: 'Leaderboard', icon: Trophy },
-            { name: 'Members', icon: Users }
+            { name: 'Members', icon: Users },
+            { name: 'Create', icon: Plus }
           ].map(item => {
             const Icon = item.icon
             return (
@@ -67,7 +104,7 @@ export default function App() {
                 className={page === item.name ? 'nav-active' : 'nav-item'}
                 onClick={() => setPage(item.name)}
               >
-                <Icon size={19} />
+                <Icon size={18} />
                 {item.name}
               </button>
             )
@@ -79,7 +116,7 @@ export default function App() {
             <div className="avatar">D</div>
             <div>
               <strong>Dante</strong>
-              <span>League Member</span>
+              <span>Commissioner</span>
             </div>
           </div>
         </div>
@@ -88,12 +125,12 @@ export default function App() {
       <main className="main">
         <header className="topbar">
           <div>
-            <span className="eyebrow">YOUR PRIVATE LEAGUE</span>
+            <span className="eyebrow">THE BOYS BOOK</span>
             <h1>{page}</h1>
           </div>
           <div className="points-box">
-            <span>YOUR POINTS</span>
-            <strong>{points.toLocaleString()}</strong>
+            <span>VIRTUAL POINTS</span>
+            <strong>1,000</strong>
           </div>
         </header>
 
@@ -101,9 +138,9 @@ export default function App() {
           <>
             <section className="welcome">
               <div>
-                <span className="eyebrow">WELCOME BACK</span>
+                <span className="eyebrow">PRIVATE LEAGUE</span>
                 <h2>Welcome to The Boys Book.</h2>
-                <p>Make your predictions. Earn virtual points. Climb the leaderboard.</p>
+                <p>Make predictions, collect virtual points, and compete with the group.</p>
               </div>
               <div className="welcome-mark">B</div>
             </section>
@@ -122,59 +159,35 @@ export default function App() {
               <div className="stat-card">
                 <Trophy />
                 <span>YOUR POINTS</span>
-                <strong>{points.toLocaleString()}</strong>
+                <strong>1,000</strong>
               </div>
             </section>
 
-            <section className="section-heading">
-              <div>
-                <span className="eyebrow">MAKE YOUR PICKS</span>
-                <h2>Open Predictions</h2>
-              </div>
-              <button className="text-button" onClick={() => setPage('Predictions')}>
-                View all <ChevronRight size={16} />
-              </button>
-            </section>
-
-            <div className="prediction-list">
-              {predictions.map(prediction => (
-                <PredictionCard
-                  key={prediction.id}
-                  prediction={prediction}
-                  selected={selected[prediction.id]}
-                  onSelect={makePrediction}
-                />
-              ))}
-            </div>
+            <PredictionList
+              predictions={predictions}
+              selections={selections}
+              setSelections={setSelections}
+              amounts={amounts}
+              setAmounts={setAmounts}
+            />
           </>
         )}
 
         {page === 'Predictions' && (
-          <>
-            <section className="section-heading">
-              <div>
-                <span className="eyebrow">YOUR LEAGUE</span>
-                <h2>All Predictions</h2>
-              </div>
-            </section>
-            <div className="prediction-list">
-              {predictions.map(prediction => (
-                <PredictionCard
-                  key={prediction.id}
-                  prediction={prediction}
-                  selected={selected[prediction.id]}
-                  onSelect={makePrediction}
-                />
-              ))}
-            </div>
-          </>
+          <PredictionList
+            predictions={predictions}
+            selections={selections}
+            setSelections={setSelections}
+            amounts={amounts}
+            setAmounts={setAmounts}
+          />
         )}
 
         {page === 'Leaderboard' && (
           <section className="panel">
             <span className="eyebrow">LEAGUE RANKINGS</span>
             <h2>Leaderboard</h2>
-            {players.map((player, index) => (
+            {[...players].sort((a, b) => b.points - a.points).map((player, index) => (
               <div className="leader-row" key={player.name}>
                 <strong>#{index + 1}</strong>
                 <span>{player.name}</span>
@@ -186,7 +199,7 @@ export default function App() {
 
         {page === 'Members' && (
           <section className="panel">
-            <span className="eyebrow">YOUR PRIVATE GROUP</span>
+            <span className="eyebrow">PRIVATE GROUP</span>
             <h2>League Members</h2>
             {players.map(player => (
               <div className="leader-row" key={player.name}>
@@ -198,38 +211,101 @@ export default function App() {
           </section>
         )}
 
+        {page === 'Create' && isCommissioner && (
+          <section className="panel">
+            <span className="eyebrow">COMMISSIONER TOOLS</span>
+            <h2>Create a prediction</h2>
+            <form onSubmit={createPrediction} className="create-form">
+              <label>Prediction question</label>
+              <input value={question} onChange={e => setQuestion(e.target.value)} placeholder="Who will win?" required />
+              <label>First outcome</label>
+              <input value={optionA} onChange={e => setOptionA(e.target.value)} placeholder="Team A" required />
+              <label>First virtual American odds</label>
+              <input type="number" value={oddsA} onChange={e => setOddsA(e.target.value)} required />
+              <label>Second outcome</label>
+              <input value={optionB} onChange={e => setOptionB(e.target.value)} placeholder="Team B" required />
+              <label>Second virtual American odds</label>
+              <input type="number" value={oddsB} onChange={e => setOddsB(e.target.value)} required />
+              <button className="create-button" type="submit">Create prediction</button>
+            </form>
+          </section>
+        )}
+
         <footer>
-          THE BOYS BOOK <span>•</span> A PRIVATE POINTS-ONLY PREDICTION GAME
+          THE BOYS BOOK <span>•</span> VIRTUAL POINTS ONLY
         </footer>
       </main>
     </div>
   )
 }
 
-function PredictionCard({ prediction, selected, onSelect }) {
+function PredictionList({ predictions, selections, setSelections, amounts, setAmounts }) {
   return (
-    <article className="prediction-card">
-      <div className="prediction-top">
-        <span className="category">{prediction.category}</span>
-        <span className="open-label">OPEN</span>
+    <>
+      <section className="section-heading">
+        <div>
+          <span className="eyebrow">YOUR LEAGUE</span>
+          <h2>Open Predictions</h2>
+        </div>
+      </section>
+
+      <div className="prediction-list">
+        {predictions.map(prediction => {
+          const selection = selections[prediction.id]
+          const amount = Number(amounts[prediction.id] || 0)
+          const odds = selection === 'A' ? prediction.oddsA : prediction.oddsB
+          const potential = selection ? calculateReturn(amount, odds) : 0
+
+          return (
+            <article className="prediction-card" key={prediction.id}>
+              <div className="prediction-top">
+                <span className="category">{prediction.category}</span>
+                <span className="open-label">OPEN</span>
+              </div>
+
+              <h3>{prediction.question}</h3>
+
+              <div className="options">
+                <button
+                  className={selection === 'A' ? 'option selected' : 'option'}
+                  onClick={() => setSelections({ ...selections, [prediction.id]: 'A' })}
+                >
+                  <strong>{prediction.optionA}</strong>
+                  <span>{prediction.oddsA > 0 ? '+' : ''}{prediction.oddsA}</span>
+                </button>
+
+                <button
+                  className={selection === 'B' ? 'option selected' : 'option'}
+                  onClick={() => setSelections({ ...selections, [prediction.id]: 'B' })}
+                >
+                  <strong>{prediction.optionB}</strong>
+                  <span>{prediction.oddsB > 0 ? '+' : ''}{prediction.oddsB}</span>
+                </button>
+              </div>
+
+              <label className="amount-label">Virtual points amount</label>
+              <input
+                type="number"
+                min="1"
+                placeholder="Enter virtual points"
+                value={amounts[prediction.id] || ''}
+                onChange={e => setAmounts({ ...amounts, [prediction.id]: e.target.value })}
+              />
+
+              {selection && amount > 0 && (
+                <div className="return-box">
+                  <span>Illustrative total return</span>
+                  <strong>{potential.toLocaleString()} virtual points</strong>
+                </div>
+              )}
+
+              <p className="selection-note">
+                {selection ? `Selected: ${selection === 'A' ? prediction.optionA : prediction.optionB}` : 'Choose an outcome to preview its virtual odds.'}
+              </p>
+            </article>
+          )
+        })}
       </div>
-      <h3>{prediction.question}</h3>
-      <div className="options">
-        {prediction.options.map(option => (
-          <button
-            key={option}
-            className={selected === option ? 'option selected' : 'option'}
-            onClick={() => onSelect(prediction.id, option)}
-          >
-            {option}
-          </button>
-        ))}
-      </div>
-      {selected && (
-        <p className="selection-note">
-          Your selection: <strong>{selected}</strong>
-        </p>
-      )}
-    </article>
+    </>
   )
 }
