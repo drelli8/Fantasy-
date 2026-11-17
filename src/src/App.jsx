@@ -149,7 +149,7 @@ export default function App() {
             <section className="">
               <div>
                 <span className="eyebrow">PRIVATE LEAGUE</span>
-                <h2> to Fantasy Gambling.</h2>
+                <h2> Welcome to Fantasy Gambling.</h2>
                 <p>Follow the matchups, make your predictions, and compete with your friends for virtual points.</p>
               </div>
               <div className="welcome-mark">🏀</div>
