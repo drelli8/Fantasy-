@@ -5,6 +5,6 @@ const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
 const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 
 export const supabase = createClient(
-  supabaseUrl,
-  supabaseKey
+  supabaseUrl,https://zdepbjsqhfyvzxdmeppt.supabase.co
+  supabaseKeysb_publishable_GWQLx5klOLyqYS-tBLX0rQ_RRvT1PzW
 )
