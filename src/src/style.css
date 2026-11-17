@@ -57,3 +57,61 @@ button {
 button:hover {
   filter: brightness(1.2);
 }
+
+/* BASKETBALL MATCHUP CARD UPGRADE */
+
+.prediction-card {
+  background: linear-gradient(145deg, #1c1c1c, #0b0b0b);
+  border: 1px solid #e87519;
+  border-radius: 16px;
+  padding: 24px;
+  transition: 0.25s ease;
+}
+
+.prediction-card:hover {
+  transform: translateY(-4px);
+  border-color: #ff9d32;
+  box-shadow: 0 8px 25px rgba(255, 120, 20, 0.15);
+}
+
+.prediction-card h3 {
+  font-size: 23px;
+  color: white;
+  margin: 18px 0;
+}
+
+.option {
+  border-radius: 12px;
+  padding: 18px;
+  min-height: 65px;
+}
+
+.option strong {
+  color: white;
+  font-size: 15px;
+}
+
+.option span {
+  color: #ff9d32;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.prediction-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.open-label {
+  border-radius: 20px;
+  padding: 6px 12px;
+}
+
+.return-box {
+  background: #24180e;
+  border: 1px solid #e87519;
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 15px;
+}
