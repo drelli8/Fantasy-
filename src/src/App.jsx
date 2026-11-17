@@ -155,6 +155,15 @@ export default function App() {
               <div className="welcome-mark">🏀</div>
             </section>
 
+<section className="featured-banner">
+  <div>
+    <span className="eyebrow">🏀 BASKETBALL CENTRAL</span>
+    <h2>THE COURT IS YOURS.</h2>
+    <p>Make your predictions. Climb the leaderboard. Own the league.</p>
+  </div>
+  <div className="basketball-art">🏀</div>
+</section>
+
             <section className="stats">
               <div className="stat-card">
                 <Target />
