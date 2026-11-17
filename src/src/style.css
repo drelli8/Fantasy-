@@ -1,36 +1,59 @@
 
-/* PREMIUM BASKETBALL BACKGROUND */
+/* FANTASY GAMBLING - BASKETBALL THEME */
 
 body {
   margin: 0;
   min-height: 100vh;
+  color: #ffffff;
+
   background:
     radial-gradient(
       circle at 15% 10%,
-      rgba(255, 168, 30, 0.15),
-      transparent 35%
+      rgba(255, 145, 0, 0.18),
+      transparent 40%
     ),
     radial-gradient(
       circle at 85% 85%,
-      rgba(255, 100, 20, 0.12),
+      rgba(255, 80, 0, 0.12),
       transparent 40%
     ),
     linear-gradient(
       135deg,
       #080808,
-      #151515 50%,
+      #171717,
       #080808
     );
 
   background-attachment: fixed;
-  color: #ffffff;
 }
 
+/* SIDEBAR */
+
 .sidebar {
-  background: rgba(5, 5, 5, 0.96);
-  border-right: 1px solid #5c471d;
+  background: #090909;
+  border-right: 1px solid #654719;
 }
+
+/* MAIN CONTENT */
 
 .main {
   background: transparent;
+}
+
+/* CARDS */
+
+.card {
+  background: rgba(25, 25, 25, 0.95);
+  border: 1px solid #393027;
+  border-radius: 12px;
+}
+
+/* BUTTONS */
+
+button {
+  transition: 0.2s ease;
+}
+
+button:hover {
+  filter: brightness(1.2);
 }
