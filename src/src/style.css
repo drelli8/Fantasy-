@@ -115,3 +115,40 @@ button:hover {
   padding: 15px;
   margin-top: 15px;
 }
+
+.featured-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px;
+  margin: 25px 0;
+  border-radius: 18px;
+  background: linear-gradient(120deg, #302014, #111, #241308);
+  border: 1px solid #a85219;
+  overflow: hidden;
+}
+
+.featured-banner h2 {
+  font-size: 30px;
+  color: #ff9d32;
+  margin: 12px 0;
+}
+
+.featured-banner p {
+  color: #cccccc;
+}
+
+.basketball-art {
+  font-size: 85px;
+  filter: drop-shadow(0 0 20px rgba(255, 130, 30, 0.4));
+}
+
+@media (max-width: 600px) {
+  .featured-banner h2 {
+    font-size: 22px;
+  }
+
+  .basketball-art {
+    font-size: 48px;
+  }
+}
