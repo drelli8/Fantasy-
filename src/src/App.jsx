@@ -4,24 +4,34 @@ import {
   Trophy, Users, Target, Home, Plus, ShieldCheck
 } from 'lucide-react'
 
+
 const initialPredictions = [
   {
     id: 1,
-    category: 'SPORTS',
-    question: 'Who wins the Sunday matchup?',
-    optionA: 'Team A',
-    optionB: 'Team B',
-    oddsA: -150,
-    oddsB: 130
+    category: 'NBA MATCHUP',
+    question: 'Lakers vs Celtics',
+    optionA: 'Los Angeles Lakers',
+    optionB: 'Boston Celtics',
+    oddsA: '+120',
+    oddsB: '-140'
   },
   {
     id: 2,
-    category: 'FRIEND GROUP',
-    question: 'Will Mike be late to the meetup?',
-    optionA: 'Yes',
-    optionB: 'No',
-    oddsA: 110,
-    oddsB: -130
+    category: 'NBA MATCHUP',
+    question: 'Knicks vs Bulls',
+    optionA: 'New York Knicks',
+    optionB: 'Chicago Bulls',
+    oddsA: '-110',
+    oddsB: '+100'
+  },
+  {
+    id: 3,
+    category: 'NBA MATCHUP',
+    question: 'Warriors vs Mavericks',
+    optionA: 'Golden State Warriors',
+    optionB: 'Dallas Mavericks',
+    oddsA: '+105',
+    oddsB: '-115'
   }
 ]
 
@@ -139,7 +149,7 @@ export default function App() {
             <section className="welcome">
               <div>
                 <span className="eyebrow">PRIVATE LEAGUE</span>
-                <h2>Welcome to The Boys Book.</h2>
+                <h2>Welcome to Fantasy Gambling.</h2>
                 <p>Make predictions, collect virtual points, and compete with the group.</p>
               </div>
               <div className="welcome-mark">B</div>
