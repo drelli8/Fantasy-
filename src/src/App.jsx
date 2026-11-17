@@ -1,5 +1,7 @@
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import Auth from './Auth'
+import { supabase } from './supabaseClient'
 import {
   Trophy, Users, Target, Home, Plus, ShieldCheck
 } from 'lucide-react'
